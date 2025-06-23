@@ -1,0 +1,12 @@
+.app-main{
+    display: flex;
+    height: 100vh;
+    &-left{
+        width: 20%;
+        background: #EEE
+    }
+    &-content{
+        width: 80%;
+        background: #F3F4F5;
+    }
+}

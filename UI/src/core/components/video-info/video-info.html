@@ -1,0 +1,32 @@
+<div class="video-info">
+  <div class="video-info-title">
+    <span>视频信息</span>
+  </div>
+  <div class="video-info-format" *ngIf="mediaInfo?.format">
+    <div>格式：{{ mediaInfo.format.format_long_name }}</div>
+    <div>时长：{{ mediaInfo.format.duration }} 秒</div>
+    <div>总比特率：{{ formatBitrate(mediaInfo.format.bit_rate) }}</div>
+    <div>大小：{{ formatSize(mediaInfo.format.size) }}</div>
+  </div>
+  <div class="video-info-stream" *ngIf="mediaInfo?.streams">
+    @for(stream of mediaInfo.streams;track stream;){
+    <div class="video-info-item">
+      @if(stream.codec_type === 'video'){
+      <div>分辨率：{{stream.width}}x{{stream.height}}</div>
+      <div>帧率：{{stream.r_frame_rate}}</div>
+      <div>比特率：{{ formatBitrate(stream.bit_rate) }}</div>
+      <div>编码：{{stream.codec_name}}</div>
+      } @if(stream.codec_type === 'audio'){
+      <div>音频编码：{{stream.codec_name}}</div>
+      <div>音频比特率：{{ formatBitrate(stream.bit_rate) }}</div>
+      <div>采样率：{{stream.sample_rate}}</div>
+      <div>声道数：{{stream.channels}}</div>
+      } @if (stream.codec_type === 'subtitle') {
+      <div>编码格式：{{stream.codec_name}}</div>
+      <div *ngIf="stream.tags?.language">语言：{{stream.tags.language}}</div>
+      <div *ngIf="stream.tags?.title">标题：{{stream.tags.title}}</div>
+      }
+    </div>
+    }
+  </div>
+</div>

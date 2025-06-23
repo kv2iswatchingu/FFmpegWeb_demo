@@ -1,0 +1,16 @@
+<div>
+  ****一堆表单****
+  <div>
+     <ui-button (btnClick)="selectInputFile()">选择视频文件</ui-button>
+    <span *ngIf="inputPath">路径：{{ inputPath }}</span>
+  </div>
+  <div *ngIf="mediaInfo">
+    <ui-video-info [mediaInfo]="mediaInfo" />
+  </div>
+  <div>
+    <ui-button themeType="primary" modeType="text" (btnClick)="convert2()">
+      startV
+    </ui-button>
+  </div>
+  <div>进度：{{progress}}% 预计剩余：{{remain}} 秒</div>
+</div>

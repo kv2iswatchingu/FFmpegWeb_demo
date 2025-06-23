@@ -1,10 +1,11 @@
 const { app, BrowserWindow } = require('electron/main')
 const path = require('node:path')
+const { registerIpcHandlers } = require('./ipc-handler')
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 675,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -12,6 +13,8 @@ const createWindow = () => {
 
    win.loadFile(path.join(__dirname, 'UI/dist/ui/browser/index.html'))
 }
+
+registerIpcHandlers();
 
 app.whenReady().then(() => {
   createWindow()
