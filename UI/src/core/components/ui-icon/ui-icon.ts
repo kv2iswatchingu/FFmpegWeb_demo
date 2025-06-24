@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
   selector: 'ui-icon',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './icon.html',
-  styleUrls: ['./icon.scss']
+  templateUrl: './ui-icon.html',
+  styleUrls: ['./ui-icon.scss']
 })
-export class Icon {
+export class UiIcon {
   @Input() name: string = '';
   @Input() size: string = '1em';
   @Input() color: string = 'inherit';

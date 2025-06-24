@@ -1,16 +1,58 @@
-<div>
-  ****一堆表单****
-  <div>
-     <ui-button (btnClick)="selectInputFile()">选择视频文件</ui-button>
-    <span *ngIf="inputPath">路径：{{ inputPath }}</span>
+<div class="video-convert">
+  <div class="video-convert-openfs">
+    <ui-button (btnClick)="selectInputFile()">选择视频文件</ui-button>
+    @if(inputPath){
+    <div class="video-convert-openfs-path">文件路径：{{ inputPath }}</div>
+    }
   </div>
-  <div *ngIf="mediaInfo">
-    <ui-video-info [mediaInfo]="mediaInfo" />
+  <div class="video-convert-openfs">
+    <ui-button (btnClick)="selectOutputFile()">选择输出位置</ui-button>
+    @if(outputPath){
+    <div class="video-convert-openfs-path">保存路径：{{ outputPath }}</div>
+    }
   </div>
-  <div>
+  @if(mediaInfo){
+  <ui-video-info [mediaInfo]="mediaInfo" />
+  }
+
+  <ui-form (submitForm)="submitToDialog()">
+    <div class="ui-form-item">
+      <label>选择输出的视频格式</label>
+      <ui-select
+        [options]="formatSelectOptions"
+        [(value)]="formData.format"
+        (valueChange)="setExt($event)"
+        placeholder="默认输出为原视频格式"
+      >
+      <!--  -->
+      </ui-select>
+      <!-- <ui-input [(value)]="formData.name" ></ui-input> -->
+    </div>
+    <div class="ui-form-item">
+      <label>视频编码器</label>
+      <ui-select
+        [(value)]="formData.videoCodec"
+        [options]="videoCodecOptions"
+        placeholder="选择视频编码器"
+      >
+      </ui-select>
+      <!-- <ui-input [(value)]="formData.name" ></ui-input> -->
+    </div>
+    <div class="ui-form-item">
+      <label>音频编码器</label>
+      <ui-select
+        [(value)]="formData.audioCodec"
+        [options]="audioCodecOptions"
+        placeholder="选择音频编码器"
+      >
+      </ui-select>
+    </div>
+  </ui-form>
+
+  <!-- <div>
     <ui-button themeType="primary" modeType="text" (btnClick)="convert2()">
       startV
     </ui-button>
   </div>
-  <div>进度：{{progress}}% 预计剩余：{{remain}} 秒</div>
+  <div>进度：{{progress}}% 预计剩余：{{remain}} 秒</div> -->
 </div>

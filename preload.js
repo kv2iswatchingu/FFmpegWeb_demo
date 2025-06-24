@@ -14,5 +14,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   onFfmpegProgress: (callback) =>
     ipcRenderer.on("ffmpeg-progress", (event, data) => callback(data)),
   selectFile: () => ipcRenderer.invoke("select-file"),
+  selectSavePath: (options) => ipcRenderer.invoke('select-save-path', options),
   getMediaInfo: (inputPath) => ipcRenderer.invoke("get-media-info", inputPath),
 });

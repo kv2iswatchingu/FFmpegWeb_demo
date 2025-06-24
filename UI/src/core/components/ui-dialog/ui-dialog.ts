@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Icon } from '../icon/icon';
-import { Button } from '../button/button';
+import { UiIcon } from '../ui-icon/ui-icon'
+import { UiButton } from '../ui-button/ui-button';
 
 @Component({
   selector: 'ui-dialog',
-  templateUrl: './dialog.html',
-  imports: [CommonModule, Icon, Button],
-  styleUrls: ['./dialog.scss'],
+  imports: [CommonModule, UiIcon, UiButton],
+   templateUrl: './ui-dialog.html',
+  styleUrls: ['./ui-dialog.scss'],
   standalone: true
 })
-export class Dialog {
+export class UiDialog {
   @Input() title: string = '提示';
   @Output() confirm = new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();

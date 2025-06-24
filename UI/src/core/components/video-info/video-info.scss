@@ -1,0 +1,24 @@
+.video-info{
+    background: #dffaff;
+    padding: 0.5em;
+    margin: 0.5em;
+    border: 1px solid #9ecfff;
+    &-title{
+        font-size: 1em;
+        margin-bottom: 0.5em;
+    }
+    &-content{
+        display: flex;
+        font-size: 0.8em;
+        color: #333;
+    }
+    &-base{
+       margin-right: 2em
+    }
+    &-stream{
+        display: flex;
+    }
+    &-item{
+        margin-right: 2em
+    }
+}

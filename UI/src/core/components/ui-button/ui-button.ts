@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
   selector: 'ui-button',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './button.html',
-  styleUrls: ['./button.scss']
+  templateUrl: './ui-button.html',
+  styleUrls: ['./ui-button.scss']
 })
-export class Button {
+export class UiButton {
 @Input() themeType: 'primary' | 'success' | 'warning' | 'error' = 'primary';
   @Input() modeType: 'standard' | 'text' | 'icon' | 'circle' = 'standard';
   @Input() customClass: string = '';

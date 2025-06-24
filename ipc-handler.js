@@ -145,6 +145,17 @@ function registerIpcHandlers() {
       ffprobe.on("error", () => resolve(null));
     });
   });
+
+  //选择保存位置
+  ipcMain.handle('select-save-path', async (event, { defaultPath, filters }) => {
+    const result = await dialog.showSaveDialog({
+      title: '选择保存位置',
+      defaultPath,
+      filters
+    });
+    if (result.canceled) return null;
+    return result.filePath;
+  });
 }
 
 module.exports = { registerIpcHandlers };

@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
   selector: 'ui-collapse',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './collapse.html',
-  styleUrls: ['./collapse.scss']
+  templateUrl: './ui-collapse.html',
+  styleUrls: ['./ui-collapse.scss']
 })
-export class Collapse {
+export class UiCollapse {
   expanded = false;
   toggle() {
     this.expanded = !this.expanded;

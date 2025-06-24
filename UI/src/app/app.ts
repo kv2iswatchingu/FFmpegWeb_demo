@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Collapse } from '../core/components/collapse/collapse';
 import { routes } from './app.routes';
-import { Button } from '../core/components/button/button';
+import { UiButton } from '../core/components/ui-button/ui-button';
+import { UiCollapse } from '../core/components/ui-collapse/ui-collapse';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, Collapse,RouterModule, Button],
+  imports: [RouterOutlet, CommonModule, UiCollapse,RouterModule, UiButton],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })

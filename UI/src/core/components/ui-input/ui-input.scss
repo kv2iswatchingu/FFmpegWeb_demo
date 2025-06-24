@@ -1,0 +1,36 @@
+.ui-input-wrapper {
+ position: relative;
+  .ui-input {
+    flex: 1;
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+  }
+}
+.ui-input-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 8px #0001;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 180px;
+  overflow-y: auto;
+}
+.ui-input-dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ui-input-dropdown li:hover {
+  background: #f0f0f0;
+}
