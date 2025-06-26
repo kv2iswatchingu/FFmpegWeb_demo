@@ -13,10 +13,13 @@ export class UiInput {
   @Input() placeholder: string = '';
   @Input() value: any = '';
   @Input() type: string = 'text';
+  @Input() minNumber: number | undefined;
+  @Input() maxNumber: number | undefined;
   @Output() valueChange = new EventEmitter<any>();
   @Input() options: { label: string, value: any }[] = []; // 新增
 
   showDropdown = false;
+
 
   onInput(val: any) {
    this.value = val.target ? val.target.value : val; // 兼容 $event 直接传递

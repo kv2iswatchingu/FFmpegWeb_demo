@@ -9,4 +9,25 @@
             margin-left: 2em;
         }
     }
+    &-operator{
+        margin-top: 1em;
+        &-title{
+            font-size: 1em;
+            margin-bottom: 0.5em;
+        }
+        &-itemgroup{
+            display: flex;
+            align-items: center;
+        }
+        &-item{
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            margin-right: 2em;
+            margin-bottom: 0.5em;
+            & label{
+                margin-right: 1em;
+            }
+        }
+    }
 }

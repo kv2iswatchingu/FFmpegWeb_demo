@@ -2,52 +2,172 @@
   <div class="video-convert-openfs">
     <ui-button (btnClick)="selectInputFile()">选择视频文件</ui-button>
     @if(inputPath){
-    <div class="video-convert-openfs-path">文件路径：{{ inputPath }}</div>
+      <div class="video-convert-openfs-path">文件路径：{{ inputPath }}</div>
     }
   </div>
   <div class="video-convert-openfs">
     <ui-button (btnClick)="selectOutputFile()">选择输出位置</ui-button>
     @if(outputPath){
-    <div class="video-convert-openfs-path">保存路径：{{ outputPath }}</div>
+      <div class="video-convert-openfs-path">保存路径：{{ outputPath }}</div>
     }
   </div>
   @if(mediaInfo){
-  <ui-video-info [mediaInfo]="mediaInfo" />
-  }
+    <ui-video-info [mediaInfo]="mediaInfo" />
+  } 
+  @if(test){
+    <div class="video-convert-operator">
+      <div class="video-convert-operator-title">输出参数选项</div>
+      <ui-form (submitForm)="submitToDialog()">
+        <div class="video-convert-operator-item">
+          <ui-checkbox [(checked)]="copyStreams" label="复制流(勾选此项时，输出的视频格式仅为兼容当前视频编码的流)">
+          </ui-checkbox>
+        </div>
 
-  <ui-form (submitForm)="submitToDialog()">
-    <div class="ui-form-item">
-      <label>选择输出的视频格式</label>
-      <ui-select
-        [options]="formatSelectOptions"
-        [(value)]="formData.format"
-        (valueChange)="setExt($event)"
-        placeholder="默认输出为原视频格式"
-      >
-      <!--  -->
-      </ui-select>
-      <!-- <ui-input [(value)]="formData.name" ></ui-input> -->
+        <div class="video-convert-operator-itemgroup">
+          <div class="video-convert-operator-item">
+            <ui-checkbox [(checked)]="changeFormat" label="修改视频格式">
+            </ui-checkbox>
+          </div>
+          @if( changeFormat ){
+          <div class="video-convert-operator-item">
+            <label>选择输出的视频格式: </label>
+            <ui-select [options]="formatSelectOptions" [(value)]="formData.format" (valueChange)="setExt($event)"
+              placeholder="选择视频格式">
+            </ui-select>
+          </div>
+          }
+        </div>
+
+        @if(!copyStreams){
+          <div class="video-convert-operator-itemgroup">
+            <div class="video-convert-operator-item">
+              <ui-checkbox [(checked)]="changeResolution" label="修改视频分辨率">
+              </ui-checkbox>
+            </div>
+            @if( changeResolution && !customResolution ){
+              <div class="video-convert-operator-item">
+                <label>分辨率:</label>
+                <ui-select [(value)]="formData.videoResolution" [options]="videoResolutionOptions" placeholder="选择分辨率">
+                </ui-select>
+              </div>
+            } 
+            @if( changeResolution ){
+              <div class="video-convert-operator-item">
+                <ui-checkbox [(checked)]="customResolution" label="自定义视频分辨率">
+                </ui-checkbox>
+              </div>
+            }
+            
+            @if( customResolution){
+              <div class="video-convert-operator-item">
+                <label>视频横向分辨率(宽):</label>
+                <ui-input [(value)]="formData.width" type="number" [minNumber]="0"></ui-input>
+              </div>
+              <div class="video-convert-operator-item">
+                <label>视频纵向分辨率(高):</label>
+                <ui-input [(value)]="formData.height" type="number" [minNumber]="0"></ui-input>
+              </div>
+            }
+          </div>
+
+          @if( changeResolution ){
+            <div class="video-convert-operator-itemgroup">
+              <div class="video-convert-operator-item">
+                <label>分辨率与画面比例:</label>
+                <ui-select 
+                  [(value)]="formData.aspectRatio" 
+                  [options]="aspectRatioOptions" 
+                  placeholder="选择比例适应模式">
+                </ui-select>
+              </div>
+              <div class="video-convert-operator-item">
+              <ui-checkbox 
+                [(checked)]="pixelAspectRatio" 
+                label="保持像素宽高比">
+              </ui-checkbox>
+            </div>
+            </div>
+          }
+        
+
+
+          <div class="video-convert-operator-itemgroup">
+            <div class="video-convert-operator-item">
+              <ui-checkbox [(checked)]="changeFPS" label="修改视频帧数">
+              </ui-checkbox>
+            </div>
+            @if( changeFPS){
+            <div class="video-convert-operator-item">
+              <label>帧数:</label>
+              <ui-select [(value)]="formData.fps" [options]="framePerSecond" placeholder="选择帧数">
+              </ui-select>
+            </div>
+            }
+          </div>
+
+          @if( changeFormat || outputFileExt !== '' ){
+            <div class="video-convert-operator-itemgroup">
+              <div class="video-convert-operator-item">
+                <label>视频编码器:</label>
+                <ui-select [(value)]="formData.videoCodec" [options]="videoCodecOptions" placeholder="选择视频编码器">
+                </ui-select>
+              </div>
+              <div class="video-convert-operator-item">
+                <label>音频编码器:</label>
+                <ui-select [(value)]="formData.audioCodec" [options]="audioCodecOptions" placeholder="选择音频编码器">
+                </ui-select>
+              </div>
+            </div>
+          }
+
+          <div class="video-convert-operator-itemgroup">
+            <div class="video-convert-operator-item">
+              <label>压缩模式:</label>
+              <ui-select [(value)]="formData.rateControl" [options]="rateControlOptions" placeholder="选择压缩模式">
+              </ui-select>
+            </div>
+            @if(formData.rateControl == 'crf'){
+            <div class="video-convert-operator-item">
+              <label>CRF值:</label>
+              <ui-input [(value)]="formData.crf" type="number" placeholder="如 23"
+                (valueChange)="setCrfWarning($event)"></ui-input>
+            </div>
+            <div class="video-convert-operator-item">
+              <ui-checkbox [(checked)]="noRatesLimit" label="不手动修改限制视频比特率">
+              </ui-checkbox>
+            </div>
+            }
+          </div>
+
+          @if( !noRatesLimit || formData.rateControl != 'crf' ){
+            <div class="video-convert-operator-itemgroup">
+              <div class="video-convert-operator-item">
+                <label>视频最大比特率:</label>
+                <ui-input 
+                  [(value)]="formData.maxBitrate" 
+                  type="number" 
+                  [minNumber]="0" 
+                  [options]="videoRatesOptions">
+                </ui-input>
+              </div>
+              <div class="video-convert-operator-item">
+                <label>视频最小比特率:</label>
+                <ui-input [(value)]="formData.minBitrate" [minNumber]="0" type="number" [options]="videoRatesOptions">
+                </ui-input>
+              </div>
+              <div class="video-convert-operator-item">
+                <label>缓冲区大小:</label>
+                <ui-input [(value)]="formData.bufsize" type="number" [minNumber]="0" [options]="videoRatesOptions">
+                </ui-input>
+              </div>
+            </div>
+          } 
+
+
+        }
+      </ui-form>
     </div>
-    <div class="ui-form-item">
-      <label>视频编码器</label>
-      <ui-select
-        [(value)]="formData.videoCodec"
-        [options]="videoCodecOptions"
-        placeholder="选择视频编码器"
-      >
-      </ui-select>
-      <!-- <ui-input [(value)]="formData.name" ></ui-input> -->
-    </div>
-    <div class="ui-form-item">
-      <label>音频编码器</label>
-      <ui-select
-        [(value)]="formData.audioCodec"
-        [options]="audioCodecOptions"
-        placeholder="选择音频编码器"
-      >
-      </ui-select>
-    </div>
-  </ui-form>
+  }
 
   <!-- <div>
     <ui-button themeType="primary" modeType="text" (btnClick)="convert2()">

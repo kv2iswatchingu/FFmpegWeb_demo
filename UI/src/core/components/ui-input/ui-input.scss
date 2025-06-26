@@ -2,10 +2,10 @@
  position: relative;
   .ui-input {
     flex: 1;
-    padding: 6px 12px;
-    border: 1px solid #d9d9d9;
+    padding: 0.25em 0.5em;
+    border: 1px solid #eee;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 0.8em;
     outline: none;
     background: #fff;
   }
@@ -17,7 +17,7 @@
   top: 100%;
   z-index: 10;
   background: #fff;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #eee;
   border-radius: 0 0 4px 4px;
   box-shadow: 0 2px 8px #0001;
   margin: 0;
@@ -26,11 +26,11 @@
   max-height: 180px;
   overflow-y: auto;
 }
-.ui-input-dropdown li {
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background 0.2s;
+.number{
+  width: 80px;
 }
-.ui-input-dropdown li:hover {
-  background: #f0f0f0;
+.text{
+  width: fit-content;
+  min-width: 120px;
+  max-width: 200px;
 }
